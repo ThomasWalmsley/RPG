@@ -16,7 +16,8 @@ class NewGameFrame(tk.Frame):
 
     def __init__(self,container):
         super().__init__(container)
-
+        self.name = "New"
+        self.master = container
         #setup grid
         #self.columnconfigure(2,1)
         #self.rowconfigure(2,1)
@@ -37,6 +38,11 @@ class NewGameFrame(tk.Frame):
         #Button Create New World
         createNewWorldButton = Button(self,text="Create",command = self.create_new_world)
         createNewWorldButton.grid(column=1, row=2,)
+
+        #Button Back
+        backButton = Button(self,text="Back",command = self.master.clickBack)
+        backButton.grid(column=1, row=3,)
+
     def retrieve_input(self):
         input = self.inputtxt.get("1.0",'end-1c')
     def create_new_world(self):

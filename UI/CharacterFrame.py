@@ -6,6 +6,7 @@ class CharacterFrame(tk.Frame):
     def __init__(self,container):
         super().__init__(container)
         print("Character frame initialised")
+        self.name = "Character"
         #self.master.config(bg = "red")
         #self.config(background = "blue")
         #characterPortraitButton = Button(self,text="Face",command =None,padx=20,pady=10)

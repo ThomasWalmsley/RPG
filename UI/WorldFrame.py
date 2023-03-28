@@ -6,7 +6,7 @@ class WorldFrame(tk.Frame):
     def __init__(self,container):
         super().__init__(container)
         print("World frame initialised")
-
+        self.name = "World"
         notebook = ttk.Notebook(self)
 
         notebook.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
