@@ -36,17 +36,6 @@ class App(tk.Tk):
         #self.game.do_action(action)
         pass
 
-    def switchFrame(self,frame):
-        if frame == "character":
-            self.characterFrame.tkraise()
-        elif frame == "world":
-            self.worldFrame.tkraise()
-        elif frame == "newgame":
-            self.newGameFrame.tkraise()
-        elif frame == "load":
-            self.loadScreenFrame.tkraise()
-        elif frame == "continue":
-            print("continue")
             
     def createFrames(self):
         characterFrame=CharacterFrame(self)
