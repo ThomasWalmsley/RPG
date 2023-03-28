@@ -1,0 +1,44 @@
+import tkinter as tk
+from tkinter import *
+from tkinter import ttk
+
+class NewGameFrame(tk.Frame):
+    #enter name of new world
+        #text box
+    #world options
+        #tech level
+        #difficulty
+        #population
+
+    #save game
+    #kill old game
+    #create new game
+
+    def __init__(self,container):
+        super().__init__(container)
+
+        #setup grid
+        #self.columnconfigure(2,1)
+        #self.rowconfigure(2,1)
+
+        #label Create New World
+
+        #label enter world name
+        # TextBox Creation
+        self.inputtxt = tk.Text(self,
+            height = 5,
+            width = 10)
+        #self.inputtxt.pack()
+        self.inputtxt.grid(column=1, row=1,)
+        
+        #world options
+        #radio button - population high/low
+
+        #Button Create New World
+        createNewWorldButton = Button(self,text="Create",command = self.create_new_world)
+        createNewWorldButton.grid(column=1, row=2,)
+    def retrieve_input(self):
+        input = self.inputtxt.get("1.0",'end-1c')
+    def create_new_world(self):
+        worldName = self.retrieve_input()
+        self.master.action("new")
