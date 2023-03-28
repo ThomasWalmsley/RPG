@@ -1,10 +1,14 @@
 from tkinter import *
 from game import Game
 from app import App
+from controller import Controller
+
+#create controller
+controller = Controller()
 
 #create game class
-game = Game()
+#game = Game(controller)
 
 #ui
-app = App(game)
+app = App(controller)
 app.mainloop()

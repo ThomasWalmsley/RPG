@@ -11,8 +11,9 @@ class Game():
 	playerCharacter = None
 	actions = {}
 
-	def __init__(self):
+	def __init__(self,controller):
 		print("game made")
+		self.controller = controller
 		self.gameName = "game1"
 		self.turn = 0
 		self.playerCharacter = self.create_character()
