@@ -48,8 +48,6 @@ class StartScreenFrame(tk.Frame):
         if controllerstate =="start" and latestSave:
             self.continueButton.grid(row=0,column=2,sticky="nsew")
             self.saveButton.grid_forget()
-            #if there is a game in the saves folder
-            #show continue button
         elif controllerstate =="started":
             self.continueButton.grid_forget()
             self.saveButton.grid(row=0,column=2,sticky="nsew")
@@ -73,7 +71,7 @@ class StartScreenFrame(tk.Frame):
         if action == "exit":
             exit()
         if action == "continue":
-            print("continue")
-            #game.continue
+            self.master.request("changestate started")
+            self.update()
         else:
-            self.master.switchFrame(action)
+            print("Functionality not implemented")

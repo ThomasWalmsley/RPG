@@ -14,32 +14,37 @@ class Controller():
     def __init__(self):
         #load options
         self.state="start"
-        #self.latest_save = self.check_saves_folder()
         self.game=Game(self)
-        self.read_saves()
+        self.save_game()
+        self.load_options()
+        if not self.confirm_latest_save():
+            self.latest_save = ""
         #self.save_options()
 
     def request(self,message):
         #clients use this to make requests
+        response =""
         if message =="state":
             response = self.state
         elif message =="latestsave":
-            response = self.latest_save
+            if self.confirm_latest_save():
+                response = self.latest_save
+        elif message == "changestate started":
+            self.state = "started"
+            print("state changed to started")
         return response
 
-    def check_saves_folder(self):
+    def confirm_latest_save(self):
         directoryPath = './Saves/'
         if os.listdir(directoryPath) == []:
-            print("No saves found")
-        else:
-            print("Saves found")
-
-    def read_saves(self):
-        # get all files inside a specific folder
-        directory_path = './Saves/'
-        for path in os.scandir(directory_path):
-            if path.is_file():
-                print(path.name)
+            print("No saves found") 
+            return
+        latest_save_exists = False
+        for path in os.scandir(directoryPath):
+            if path.name == self.latest_save:
+                latest_save_exists = True
+                #print("latest save exists")
+        return latest_save_exists
 
     def to_json(self):
         data={
@@ -56,9 +61,12 @@ class Controller():
             outfile.write(json_string)
 
     def load_game(self):
-        pass
+        self.latest_save = self.game.name + '.json'
 
     def save_game(self): 
+        if not self.game:
+            print("cannot save, no game")
+            return
         print("save game")
         data = self.game.to_json()
         json_string = json.dumps(data,indent=4)
