@@ -44,8 +44,7 @@ class LoadScreenFrame(tk.Frame):
             if savegame.endswith('.json'):
                 savegame = savegame[:-5]
             print("savegame = "+savegame)
-            sg = str(savegame)
-            self.buttons.append(Button(self,text=sg,command = lambda:self.loadgame(sg)))
+            self.buttons.append(Button(self,text=savegame,command = lambda sg = savegame:self.loadgame(sg)))
 
     def reset_buttons(self):
         for button in self.buttons:
