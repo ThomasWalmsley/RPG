@@ -14,12 +14,13 @@ class Controller():
     def __init__(self):
         #load options
         self.state="start"
+        #a game should not be created here
         self.game=Game(self)
         self.save_game()
         self.load_options()
         if not self.confirm_latest_save():
             self.latest_save = ""
-        #self.save_options()
+        #self.get_all_save_games()
 
     def request(self,message):
         #clients use this to make requests
@@ -32,6 +33,8 @@ class Controller():
         elif message == "changestate started":
             self.state = "started"
             print("state changed to started")
+        elif message == "get all save games":
+            response = self.get_all_save_games()
         return response
 
     def confirm_latest_save(self):
@@ -62,6 +65,7 @@ class Controller():
 
     def load_game(self):
         self.latest_save = self.game.name + '.json'
+        self.save_options()
 
     def save_game(self): 
         if not self.game:
@@ -70,12 +74,22 @@ class Controller():
         print("save game")
         data = self.game.to_json()
         json_string = json.dumps(data,indent=4)
-        self.latest_save = self.game.name + '.json'
         filePathName = './Saves/' + self.game.name + '.json'
         with open(filePathName,'w')as outfile:
             outfile.write(json_string)
 
+        self.latest_save = self.game.name + '.json'
+        self.save_options()
+
     def load_options(self):
+        directoryPath = './'
+        optionsFileExists = False
+        for path in os.scandir(directoryPath):
+            if path.name == 'options.json':
+                optionsFileExists = True    
+        if not optionsFileExists:
+            print("no options file found")
+            return 
         file = open('options.json')
         data = json.load(file)
         self.latest_save=data["latest_save"]
@@ -83,3 +97,15 @@ class Controller():
         #for i in data:
             #print(i)
         file.close()
+
+    def get_all_save_games(self):
+        directoryPath = './Saves/'
+        if os.listdir(directoryPath) == []:
+            print("No saves found") 
+            return
+        savesList = []
+        for path in os.scandir(directoryPath):
+            if path.is_file():
+                savesList.append(path.name)
+                print(path.name + " appended")
+        return savesList        

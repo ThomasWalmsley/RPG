@@ -12,7 +12,7 @@ class Game():
 	def __init__(self,controller):
 		print("game made")
 		self.controller = controller
-		self.name = "game2"
+		self.name = "game3"
 		self.turn = 0
 		self.playerCharacter = self.create_character()
 

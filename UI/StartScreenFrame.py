@@ -75,3 +75,8 @@ class StartScreenFrame(tk.Frame):
             self.update()
         else:
             print("Functionality not implemented")
+
+    def request(self,message):
+        response = self.master.request(message)
+        #pass request from client to controller
+        return response
