@@ -9,7 +9,7 @@ class MenuFrame(tk.Frame):
         
         #add menus
         self.master.option_add('*tearOff', False)
-        print("Menu frame initialised")
+        #print("Menu frame initialised")
         menu=Menu(self.master)
         menu=Menu()
         self.master.config(menu=menu)

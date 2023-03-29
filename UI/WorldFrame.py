@@ -5,7 +5,7 @@ from tkinter import ttk
 class WorldFrame(tk.Frame):
     def __init__(self,container):
         super().__init__(container)
-        print("World frame initialised")
+        #print("World frame initialised")
         self.name = "World"
         notebook = ttk.Notebook(self)
 
@@ -29,7 +29,7 @@ class WorldFrame(tk.Frame):
 class AreaFrame(tk.Frame):
     def __init__(self,container):
         super().__init__(container)
-        print("Area frame initialised")
+        #print("Area frame initialised")
 
         #configure grid
         Grid.rowconfigure(self,1,weight=1)
@@ -83,7 +83,7 @@ class AreaFrame(tk.Frame):
 class TownFrame(tk.Frame):
     def __init__(self,container):
         super().__init__(container)
-        print("Town frame initialised")
+        #print("Town frame initialised")
 
         #configure grid
         Grid.columnconfigure(self,1,weight=1)
@@ -152,7 +152,7 @@ class TownFrame(tk.Frame):
 class ShopFrame(tk.Frame):
     def __init__(self,container):
         super().__init__(container)
-        print("Shop frame initialised")
+        #print("Shop frame initialised")
 
         #Configure Grid
         Grid.columnconfigure(self,1,weight=1)

@@ -9,10 +9,10 @@ class StartScreenFrame(tk.Frame):
     def __init__(self,container):
         super().__init__(container)
         self.name = "Menu"
-
+        self.master=container
         self.newGameFrame = NewGameFrame(self)
         self.LoadScreenFrame = LoadScreenFrame(self)
-
+        #print(self.master.request("state"))
         #self.newGameFrame.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
         #self.LoadScreenFrame.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
 
@@ -25,16 +25,35 @@ class StartScreenFrame(tk.Frame):
 
         #create buttons
         #regarding continue, this button should be hidden if there are no saves stored
-        continueButton = Button(self,text="Continue",command =lambda:self.buttonClick("continue"))
+        self.saveButton = Button(self,text="save",command = lambda:self.buttonClick("save"))
+        self.continueButton = Button(self,text="Continue",command =lambda:self.buttonClick("continue"))
         newGameButton = Button(self,text="New Game",command =self.switch_to_new_game)
         LoadGameButton = Button(self,text="Load Game",command =self.switch_to_load_game)
         exitButton = Button(self,text="Exit",command =lambda:self.buttonClick("exit"))
         
         #place buttons
-        continueButton.grid(row=0,column=2,sticky="nsew")
+
+        self.update()
+        #continueButton.grid(row=0,column=2,sticky="nsew")
+        #self.saveButton.grid(row=0,column=2,sticky="nsew")
+        
         newGameButton.grid(row=1,column=2,sticky="nsew")
         LoadGameButton.grid(row=2,column=2,sticky="nsew")
         exitButton.grid(row=3,column=2,sticky="nsew")
+
+    def update(self):
+        #get controller state
+        controllerstate= self.master.request("state")
+        latestSave = self.master.request("latestsave")
+        if controllerstate =="start" and latestSave:
+            self.continueButton.grid(row=0,column=2,sticky="nsew")
+            self.saveButton.grid_forget()
+            #if there is a game in the saves folder
+            #show continue button
+        elif controllerstate =="started":
+            self.continueButton.grid_forget()
+            self.saveButton.grid(row=0,column=2,sticky="nsew")
+        #else:
 
     def switch_to_new_game(self):
         self.newGameFrame.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
@@ -47,7 +66,7 @@ class StartScreenFrame(tk.Frame):
     def clickBack(self):
         self.newGameFrame.place_forget()
         self.LoadScreenFrame.place_forget()
-        print("raise")
+        #print("raise")
 
     def buttonClick(self,action):
         action = action

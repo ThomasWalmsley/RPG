@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import IntEnum
 
-class Race(Enum):
+class Race(IntEnum):
     Human = 1
     Orc =2
     Dwarf = 3

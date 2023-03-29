@@ -18,13 +18,7 @@ class NewGameFrame(tk.Frame):
         super().__init__(container)
         self.name = "New"
         self.master = container
-        #setup grid
-        #self.columnconfigure(2,1)
-        #self.rowconfigure(2,1)
 
-        #label Create New World
-
-        #label enter world name
         # TextBox Creation
         self.inputtxt = tk.Text(self,
             height = 5,
@@ -32,9 +26,6 @@ class NewGameFrame(tk.Frame):
         #self.inputtxt.pack()
         self.inputtxt.grid(column=1, row=1,)
         
-        #world options
-        #radio button - population high/low
-
         #Button Create New World
         createNewWorldButton = Button(self,text="Create",command = self.create_new_world)
         createNewWorldButton.grid(column=1, row=2,)

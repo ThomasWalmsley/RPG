@@ -14,11 +14,11 @@ class App(tk.Tk):
         super().__init__()
         
         #set game
-        self.contoller = controller
+        self.controller = controller
 
         #configure the root window
         self.title("RPG")
-        self.geometry("300x120")
+        self.geometry("400x200")
         self.resizable(True,True)   
         
         #create notebook
@@ -36,6 +36,10 @@ class App(tk.Tk):
         #self.game.do_action(action)
         pass
 
+    def request(self,message):
+        response = self.controller.request(message)
+        #pass request from client to controller
+        return response
             
     def createFrames(self):
         characterFrame=CharacterFrame(self)

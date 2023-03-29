@@ -5,7 +5,7 @@ from tkinter import ttk
 class CharacterFrame(tk.Frame):
     def __init__(self,container):
         super().__init__(container)
-        print("Character frame initialised")
+        #print("Character frame initialised")
         self.name = "Character"
         #self.master.config(bg = "red")
         #self.config(background = "blue")

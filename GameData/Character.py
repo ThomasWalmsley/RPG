@@ -35,6 +35,13 @@ class Character():
         self.maxActionPoints = maxActionPoints
         self.maxHealth = maxHealth
 
-    #def toJson(self):
-        #return json.dumps(self, default=lambda o: o.__dict__)
+    def to_json(self):
+        return {
+            "name":self.name,
+            "age":self.age,
+            "sex":str(self.sex),
+            "race":str(self.race),
+            "maxActionPoints":self.maxActionPoints,
+            "maxHealth":self.maxHealth,           
+        }
     
