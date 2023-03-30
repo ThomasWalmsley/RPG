@@ -73,6 +73,8 @@ class StartScreenFrame(tk.Frame):
         if action == "continue":
             self.master.request("changestate started")
             self.update()
+        elif action == "save":
+            self.master.request("save")
         else:
             print("Functionality not implemented")
 

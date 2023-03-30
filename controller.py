@@ -15,8 +15,8 @@ class Controller():
         #load options
         self.state="start"
         #a game should not be created here
-        self.game=Game(self)
-        self.save_game()
+        #self.game=Game(self,3)
+        #self.save_game()
         self.load_options()
         if not self.confirm_latest_save():
             self.latest_save = ""
@@ -35,7 +35,30 @@ class Controller():
             print("state changed to started")
         elif message == "get all save games":
             response = self.get_all_save_games()
+        elif message.startswith('loadgame'):
+            gamefile = message[9:]
+            self.load_game(gamefile)#
+        elif message == "save":
+            self.save_game()
+        elif message.startswith('create world'):
+            name = message[13:]
+            self.create_game(name)
         return response
+
+    def request2(self,request):
+        if not request:
+            print("request made but no request found")
+            return
+        requestType = request.type
+        requestData = request.data
+        requesttypes = {
+            "change state":"hi",
+            "get":"",
+            "set":"",
+            "load":"",
+            "save":"",
+            "create":""
+        }
 
     def confirm_latest_save(self):
         directoryPath = './Saves/'
@@ -63,9 +86,35 @@ class Controller():
         with open(filePathName,'w')as outfile:
             outfile.write(json_string)
 
-    def load_game(self):
+    def load_game(self,gamename):
+        gamefile = gamename
+        #if gamename doesn't have .json at the end, add it
+        if not (gamefile.endswith('.json')):
+            gamefile = gamefile+'.json'
+        #check the file exists
+        directoryPath = './Saves/'
+        saveFileExists = False
+        for path in os.scandir(directoryPath):
+            if path.name == gamefile:
+                saveFileExists = True    
+        if not saveFileExists:
+            print("save file not found")
+            return
+        #read file 
+        path = './Saves/'+gamefile
+        file = open(path)
+        data = json.load(file)
+        file.close()
+        #delete any previous game
+        if self.game:
+            del self.game
+        #create game 
+        self.game = Game(self,data)
+        #update options
         self.latest_save = self.game.name + '.json'
         self.save_options()
+        #print for testing
+        print(data)
 
     def save_game(self): 
         if not self.game:
@@ -80,6 +129,15 @@ class Controller():
 
         self.latest_save = self.game.name + '.json'
         self.save_options()
+
+    def create_game(self,data):
+        #delete any existing game
+        if self.game:
+            del self.game
+        self.game = Game(self,data)
+        print(self.game.name)
+        if self.game:
+            self.save_game()
 
     def load_options(self):
         directoryPath = './'

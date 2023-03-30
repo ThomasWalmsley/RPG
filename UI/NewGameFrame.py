@@ -19,12 +19,18 @@ class NewGameFrame(tk.Frame):
         self.name = "New"
         self.master = container
 
+        #grid configure
+        Grid.rowconfigure(self,1,weight =1)
+        Grid.rowconfigure(self,2,weight =1)
+        Grid.rowconfigure(self,3,weight =1)
+        Grid.columnconfigure(self,1,weight =1)
+
         # TextBox Creation
         self.inputtxt = tk.Text(self,
             height = 5,
             width = 10)
         #self.inputtxt.pack()
-        self.inputtxt.grid(column=1, row=1,)
+        self.inputtxt.grid(column=1, row=1,sticky = "nesw")
         
         #Button Create New World
         createNewWorldButton = Button(self,text="Create",command = self.create_new_world)
@@ -36,6 +42,11 @@ class NewGameFrame(tk.Frame):
 
     def retrieve_input(self):
         input = self.inputtxt.get("1.0",'end-1c')
+        return input
+
     def create_new_world(self):
-        worldName = self.retrieve_input()
-        self.master.action("new")
+        name =   self.retrieve_input()
+        self.request("create world "+name)
+
+    def request(self,message):
+        self.master.request(message)

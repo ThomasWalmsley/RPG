@@ -9,13 +9,20 @@ class Game():
 	turn = 0
 	playerCharacter = None
 
-	def __init__(self,controller):
+	def __init__(self,controller,data):
 		print("game made")
 		self.controller = controller
-		self.name = "game3"
+		if data:
+			self.initialise(data)
+		else:
+			self.name = "default"
 		self.turn = 0
 		self.playerCharacter = self.create_character()
 
+	def initialise(self,data):
+		#self.name = data['name']
+		self.name = data
+		print("name = "+self.name)
 
 	def to_json(self):
 		return {
