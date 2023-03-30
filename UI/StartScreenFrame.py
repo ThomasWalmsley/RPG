@@ -60,6 +60,7 @@ class StartScreenFrame(tk.Frame):
     def switch_to_load_game(self):
         self.LoadScreenFrame.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
         self.LoadScreenFrame.tkraise()
+        self.LoadScreenFrame.update()
         
     def clickBack(self):
         self.newGameFrame.place_forget()
