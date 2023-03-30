@@ -72,6 +72,8 @@ class StartScreenFrame(tk.Frame):
             exit()
         if action == "continue":
             self.master.request("changestate started")
+            savegame = self.request("latestsave")
+            self.request("loadgame "+savegame)   
             self.update()
         elif action == "save":
             self.master.request("save")

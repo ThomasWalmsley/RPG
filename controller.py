@@ -10,6 +10,7 @@ class Controller():
     state = ""
     latest_save=""
     player_options=[]#unused
+    
 
     def __init__(self):
         #load options
@@ -52,13 +53,16 @@ class Controller():
         requestType = request.type
         requestData = request.data
         requesttypes = {
-            "change state":"hi",
-            "get":"",
+            "change state": self.change_state(request.data),
+            "get":self.get(request.data),
             "set":"",
-            "load":"",
-            "save":"",
-            "create":""
+            "load":self.load_game(request.data),
+            "save":self.save_game(),
+            "create":self.create_game(request.data)
         }
+
+    def change_state(self,state):
+        self.state = state
 
     def confirm_latest_save(self):
         directoryPath = './Saves/'

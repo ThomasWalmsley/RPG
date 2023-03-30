@@ -20,8 +20,11 @@ class Game():
 		self.playerCharacter = self.create_character()
 
 	def initialise(self,data):
-		#self.name = data['name']
-		self.name = data
+		if isinstance(data,str):
+			self.name = data
+		else:
+			#self.name = data['name']
+			self.name = data['name']
 		print("name = "+self.name)
 
 	def to_json(self):
