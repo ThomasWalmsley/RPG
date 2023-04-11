@@ -46,7 +46,7 @@ class NewGameFrame(tk.Frame):
 
     def create_new_world(self):
         name =   self.retrieve_input()
-        self.request("create world "+name)
+        self.send_request("create world "+name)
 
-    def request(self,message):
-        self.master.request(message)
+    def send_request(self,message):
+        self.master.send_request(message)

@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\GameData",
+    "\\Saves",
+    "\\UI"
   ],
+  "SelectedNode": "\\testRequest.py",
   "PreviewInSolutionExplorer": false
 }

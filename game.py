@@ -42,6 +42,6 @@ class Game():
 		pass
 
 	def create_character(self):
-		character =Character("Tom",22,Sex.Male,Race.Human,5,100)
+		character =Character(1,"Tom",22,Sex.Male,Race.Human,5,100)
 		#self.save_character(character)
 		return character

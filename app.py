@@ -36,8 +36,13 @@ class App(tk.Tk):
         #self.game.do_action(action)
         pass
 
-    def request(self,message):
-        response = self.controller.request(message)
+    def send_request(self,message):
+        #tempory fix
+        if type(message) is str:
+            response = self.controller.request(message)
+        else:
+            print("using request 2")
+            response = self.controller.request2(message)
         #pass request from client to controller
         return response
             

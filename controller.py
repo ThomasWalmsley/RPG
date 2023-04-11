@@ -1,6 +1,10 @@
 import os
 import json
 from game import Game
+
+from request import Request
+from requestType import RequestType
+from response import Response
 #The controller controls everything
 #it handles communication between all components
 #eg UI asks controller for information from Game
@@ -47,19 +51,42 @@ class Controller():
         return response
 
     def request2(self,request):
+        request = request
         if not request:
             print("request made but no request found")
             return
+        if type(request) is str:
+            print("string request recieved, please use a request object")
+            return
         requestType = request.type
         requestData = request.data
-        requesttypes = {
-            "change state": self.change_state(request.data),
-            "get":self.get(request.data),
-            "set":"",
-            "load":self.load_game(request.data),
-            "save":self.save_game(),
-            "create":self.create_game(request.data)
-        }
+        if requestType == RequestType.getData:
+            print("request get data recieved")
+            #response = Response()
+            pass
+        elif requestType == RequestType.setData:
+            print("request set data recieved")
+            pass
+        elif requestType == RequestType.load:
+            #check request data is valid
+            print("request load recieved")
+            if not type(request.data) is str:
+                print("request contained no valid game name")
+                return
+            self.load_game(request.data)
+            pass
+        elif requestType == RequestType.save:
+            pass
+        elif requestType == RequestType.changeState:
+            pass
+        #requesttypes = {
+        #    "change state": self.change_state(request.data),
+        #    "get":self.get(request.data),
+        #    "set":"",
+        #    "load":self.load_game(request.data),
+        #    "save":self.save_game(),
+        #    "create":self.create_game(request.data)
+        #}
 
     def change_state(self,state):
         self.state = state

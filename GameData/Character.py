@@ -4,6 +4,7 @@ import json
 
 class Character():
     #simple things
+    id:int
     name:str
     age:int
     sex:Sex
@@ -27,7 +28,8 @@ class Character():
     contitution:int
     magicka:int
     
-    def __init__(self,name,age,sex,race,maxActionPoints,maxHealth):
+    def __init__(self,id,name,age,sex,race,maxActionPoints,maxHealth):
+        self.id = id
         self.name = name
         self.age = age
         self.sex = sex
@@ -37,6 +39,7 @@ class Character():
 
     def to_json(self):
         return {
+            "id":self.id,
             "name":self.name,
             "age":self.age,
             "sex":str(self.sex),

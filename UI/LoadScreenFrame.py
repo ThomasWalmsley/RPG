@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 
+from request import Request
+from requestType import RequestType
+
 class LoadScreenFrame(tk.Frame):
     savegames =[]
     buttons = []
@@ -29,6 +32,7 @@ class LoadScreenFrame(tk.Frame):
         self.backButton.grid(row=len(self.buttons)+1,column=1)
 
     def create_buttons(self):
+        self.backButton = Button(self,text="Back",command=self.master.clickBack)
         if not self.savegames:
             print("no savegames, load buttons not created")
             return
@@ -36,20 +40,23 @@ class LoadScreenFrame(tk.Frame):
             if savegame.endswith('.json'):
                 savegame = savegame[:-5]
             self.buttons.append(Button(self,text=savegame,command = lambda sg = savegame:self.loadgame(sg)))
-        self.backButton = Button(self,text="Back",command=self.master.clickBack)
+
 
     def clear(self):
         list = self.grid_slaves()
         for l in list:
             l.destroy()
 
-    def request(self,message):  
-        response = self.master.request(message)
+    def send_request(self,request):  
+        response = self.master.send_request(request)
         #pass request from client to controller
         return response
 
     def update(self):
-        self.savegames = self.request("get all save games")
+        #request all savegames
+        #request = Request(RequestType.load,"help!")
+        #self.send_request(request)
+        self.savegames = self.send_request("get all save games")
         self.clear()
         self.buttons = []
         self.create_buttons()
@@ -57,4 +64,7 @@ class LoadScreenFrame(tk.Frame):
         self.format_grid()
 
     def loadgame(self,savegame):
-        self.request("loadgame "+savegame)
+        print("savegame = "+savegame)
+        request = Request(RequestType.load,savegame)
+        self.send_request(request)
+        #self.send_request("loadgame "+savegame)

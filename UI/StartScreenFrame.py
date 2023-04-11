@@ -4,6 +4,9 @@ from tkinter import ttk
 
 from .NewGameFrame import NewGameFrame
 from.LoadScreenFrame import LoadScreenFrame
+from request import Request
+from response import Response
+from requestType import RequestType
 
 class StartScreenFrame(tk.Frame):
     def __init__(self,container):
@@ -43,8 +46,8 @@ class StartScreenFrame(tk.Frame):
 
     def update(self):
         #get controller state
-        controllerstate= self.master.request("state")
-        latestSave = self.master.request("latestsave")
+        controllerstate= self.send_request("state")
+        latestSave = self.send_request("latestsave")
         if controllerstate =="start" and latestSave:
             self.continueButton.grid(row=0,column=2,sticky="nsew")
             self.saveButton.grid_forget()
@@ -73,15 +76,20 @@ class StartScreenFrame(tk.Frame):
             exit()
         if action == "continue":
             self.master.request("changestate started")
-            savegame = self.request("latestsave")
-            self.request("loadgame "+savegame)   
+            savegame = self.send_request("latestsave")
+            self.send_request("loadgame "+savegame)   
+            #self.request(Request())
             self.update()
         elif action == "save":
             self.master.request("save")
+            request = Request(RequestType.save,"game")
+            self.send_request(Request())
         else:
             print("Functionality not implemented")
 
-    def request(self,message):
-        response = self.master.request(message)
+    def send_request(self,request):
+        #response = self.master.request(message)
         #pass request from client to controller
+        #self.master.request(request)
+        response = self.master.send_request(request)
         return response
